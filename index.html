@@ -1491,12 +1491,17 @@ img { display: block; max-width: 100%; }
 </head>
 <body>
 <script type="text/javascript">
-   (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
-   m[i].l=1*new Date();
-   for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
-   k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
-   (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
-   ym(109088169, "init", {clickmap:true,trackLinks:true,accurateTrackBounce:true,webvisor:true});
+function initYandexMetrika() {
+  if (window.__ym_loaded) return; window.__ym_loaded = true;
+  (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+  m[i].l=1*new Date();
+  for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+  k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+  (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+  ym(109088169, "init", {clickmap:true,trackLinks:true,accurateTrackBounce:true,webvisor:true});
+}
+try { if (localStorage.getItem("cookie-consent") === "accepted") { initYandexMetrika(); } } catch(e) {}
+document.addEventListener("pc:cookie:accept", initYandexMetrika);
 </script>
 <noscript><div><img src="https://mc.yandex.ru/watch/109088169" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
 <div id="root"></div>
@@ -2999,7 +3004,7 @@ function NavBar({ route, navigate, theme, setTheme }) {
     { id: "wholesale", label: "Кофейням" },
     { id: "about", label: "О бренде" },
     { id: "blog", label: "Журнал" },
-    { id: "brandbook", label: "Бренд-бук" },
+    { id: "brandbook", label: "Бренд-бук", external: "https://disk.yandex.ru/d/-9tauXgm8REhzQ" },
     { id: "contacts", label: "Контакты" }
   ];
 
@@ -3130,8 +3135,10 @@ function MarqueeStrip() {
 }
 
 function Footer({ navigate }) {
+  const [consent, setConsent] = React.useState(false);
   function handleSubscribe(e) {
     e.preventDefault();
+    if (!consent) return;
     const email = e.target.email.value.trim();
     if (!email) return;
     const subject = encodeURIComponent("Подписка на письма Profile Coffee");
@@ -3144,10 +3151,19 @@ function Footer({ navigate }) {
       <div className="footer-grid">
         <div>
           <h4>Подписка на письма</h4>
-          <form style={{display:"flex", gap: 8, marginTop: 8}} onSubmit={handleSubscribe}>
-            <input name="email" type="email" required style={{flex:1, padding:"10px 12px", background:"transparent", border:"1px solid rgba(236,226,205,0.3)", color:"var(--bg)", borderRadius:8, fontFamily:"var(--font-sans)"}} placeholder="email@адрес.ру" />
-            <button type="submit" className="btn btn-primary btn-sm">→</button>
-          </form>
+          <div>
+            <form style={{display:"flex", gap: 8, marginTop: 8}} onSubmit={handleSubscribe}>
+              <input name="email" type="email" required style={{flex:1, padding:"10px 12px", background:"transparent", border:"1px solid rgba(236,226,205,0.3)", color:"var(--bg)", borderRadius:8, fontFamily:"var(--font-sans)"}} placeholder="email@адрес.ру" />
+              <button type="submit" disabled={!consent} className="btn btn-primary btn-sm" style={{opacity: consent ? 1 : 0.45, cursor: consent ? "pointer" : "not-allowed"}}>→</button>
+            </form>
+            <label style={{display:"flex", alignItems:"flex-start", gap:8, marginTop:10, cursor:"pointer"}}>
+              <input type="checkbox" checked={consent} onChange={e => setConsent(e.target.checked)} style={{marginTop:3, accentColor:"var(--accent)", flexShrink:0}} />
+              <span style={{fontSize:12, color:"rgba(236,226,205,0.65)", lineHeight:1.5}}>
+                Согласен(а) на{" "}
+                <a href="#" onClick={(e)=>{e.preventDefault();navigate("legal");}} style={{color:"rgba(236,226,205,0.85)", textDecoration:"underline"}}>обработку персональных данных</a>
+              </span>
+            </label>
+          </div>
           <p style={{fontSize:13, color:"rgba(236,226,205,0.6)", marginTop:14, maxWidth:"38ch"}}>
             Раз в две недели — свежие лоты, заметки с каппинга и редкие микропартии. Письма уходят напрямую Антону.
           </p>
@@ -3199,6 +3215,7 @@ function CookieBanner({ navigate }) {
   }, []);
   function accept() {
     try { localStorage.setItem("cookie-consent", "accepted"); } catch (e) {}
+    document.dispatchEvent(new Event("pc:cookie:accept"));
     setVisible(false);
   }
   if (!visible) return null;
@@ -4039,7 +4056,13 @@ function WholesaleScreen({ navigate }) {
               <input name="volume" placeholder="5–15 / 15–40 / 40–100 / 100+ кг" />
             </div>
             <div className="field"><label>Комментарий</label><textarea name="comment" rows="3" placeholder="Что у вас за машина, какая вода, есть ли уже поставщик"></textarea></div>
-            <button type="submit" className="btn btn-primary btn-lg" style={{width:"100%"}}>Отправить заявку</button>
+            <label style={{display:"flex",alignItems:"flex-start",gap:10,marginTop:14,cursor:"pointer"}}>
+              <input type="checkbox" name="pdConsent" required style={{marginTop:4,accentColor:"var(--accent)",flexShrink:0,width:16,height:16}} />
+              <span style={{fontSize:13,color:"var(--ink-2)",lineHeight:1.55}}>
+                Я согласен(а) на{" "}<a href="#" onClick={(e)=>{e.preventDefault();navigate("legal");}} style={{color:"var(--accent)"}}>обработку персональных данных</a>
+              </span>
+            </label>
+            <button type="submit" className="btn btn-primary btn-lg" style={{width:"100%",marginTop:14}}>Отправить заявку</button>
           </form>
         </div>
       </section>
@@ -4160,11 +4183,24 @@ function BlogScreen({ navigate }) {
             <h2 className="h2" style={{maxWidth:"14ch"}}>Раз в две недели — новые лоты и заметки.</h2>
           </div>
           <div style={{display:"flex", flexDirection:"column", justifyContent:"center", gap: 14}}>
-            <div style={{display:"flex", gap: 10}}>
-              <input style={{flex:1, padding:"14px 16px", background:"var(--bg)", border:"1px solid var(--line)", borderRadius: 8, fontFamily:"var(--font-sans)", fontSize:15, color:"var(--ink)"}} placeholder="ваш email" />
-              <button className="btn btn-primary btn-lg">Подписаться</button>
-            </div>
-            <p style={{fontSize:13, color:"var(--muted)"}}>Без спама. Отписаться в один клик.</p>
+            <form style={{display:"flex", flexDirection:"column", gap:10}} onSubmit={(e)=>{
+                e.preventDefault();
+                const em = e.target.newsEmail.value.trim();
+                if (!em) return;
+                window.location.href = "mailto:karpkit@mail.ru?subject=" + encodeURIComponent("Подписка на рассылку") + "&body=" + encodeURIComponent("Email: " + em);
+              }}>
+              <div style={{display:"flex", gap: 10}}>
+                <input name="newsEmail" type="email" required style={{flex:1, padding:"14px 16px", background:"var(--bg)", border:"1px solid var(--line)", borderRadius: 8, fontFamily:"var(--font-sans)", fontSize:15, color:"var(--ink)"}} placeholder="ваш email" />
+                <button type="submit" className="btn btn-primary btn-lg">Подписаться</button>
+              </div>
+              <label style={{display:"flex", alignItems:"flex-start", gap:8, cursor:"pointer"}}>
+                <input type="checkbox" required style={{marginTop:3, accentColor:"var(--accent)", flexShrink:0}} />
+                <span style={{fontSize:13, color:"var(--muted)", lineHeight:1.55}}>
+                  Согласен(а) на <a href="#" onClick={(e)=>{e.preventDefault();navigate("legal");}} style={{color:"var(--accent)"}}>обработку персональных данных</a>
+                </span>
+              </label>
+              <p style={{fontSize:13, color:"var(--muted)"}}>Без спама. Отписаться в один клик.</p>
+            </form>
           </div>
         </div>
       </section>
