@@ -3152,10 +3152,19 @@ function Footer({ navigate }) {
         <div>
           <h4>Подписка на письма</h4>
           <div>
-            <form style={{display:"flex", gap: 8, marginTop: 8}} onSubmit={handleSubscribe}>
+            <form style={{display:"flex", flexDirection:"column", gap:10, marginTop:8}} onSubmit={handleSubscribe}>
+            <div style={{display:"flex", gap:8}}>
               <input name="email" type="email" required style={{flex:1, padding:"10px 12px", background:"transparent", border:"1px solid rgba(236,226,205,0.3)", color:"var(--bg)", borderRadius:8, fontFamily:"var(--font-sans)"}} placeholder="email@адрес.ру" />
-              <button type="submit" disabled={!consent} className="btn btn-primary btn-sm" style={{opacity: consent ? 1 : 0.45, cursor: consent ? "pointer" : "not-allowed"}}>→</button>
-            </form>
+              <button type="submit" className="btn btn-primary btn-sm">→</button>
+            </div>
+            <label style={{display:"flex", alignItems:"flex-start", gap:8, cursor:"pointer"}}>
+              <input type="checkbox" name="subConsent" required style={{marginTop:3, accentColor:"var(--accent)", flexShrink:0}} />
+              <span style={{fontSize:12, color:"rgba(236,226,205,0.65)", lineHeight:1.5}}>
+                Согласен(а) на{" "}
+                <a href="#" onClick={(e)=>{e.preventDefault();navigate("legal");}} style={{color:"rgba(236,226,205,0.85)", textDecoration:"underline"}}>обработку персональных данных</a>
+              </span>
+            </label>
+          </form>
             <label style={{display:"flex", alignItems:"flex-start", gap:8, marginTop:10, cursor:"pointer"}}>
               <input type="checkbox" checked={consent} onChange={e => setConsent(e.target.checked)} style={{marginTop:3, accentColor:"var(--accent)", flexShrink:0}} />
               <span style={{fontSize:12, color:"rgba(236,226,205,0.65)", lineHeight:1.5}}>
@@ -4386,17 +4395,24 @@ function LegalScreen({ navigate }) {
 }
 
 function BrandBookScreen({ navigate }) {
+  React.useEffect(() => {
+    window.open("https://disk.yandex.ru/d/-9tauXgm8REhzQ", "_blank", "noopener");
+  }, []);
   return (
-    <section style={{padding: "24px var(--pad-x) 60px"}}>
+    <section style={{padding:"60px var(--pad-x) 80px", textAlign:"center", minHeight:"60vh", display:"flex", flexDirection:"column", alignItems:"center", justifyContent:"center", gap:24}}>
       <div className="eyebrow">Бренд</div>
-      <h1 className="h1" style={{maxWidth:"16ch", marginBottom: 8}}>Брендбук Profile Coffee</h1>
-      <p className="lede" style={{marginBottom: 24}}>Логотип, палитра, типографика, паттерны и правила для упаковки и материалов бренда.</p>
-      <div style={{border:"1px solid var(--line)", borderRadius:"var(--r-lg)", overflow:"hidden", background:"var(--paper)"}}>
-        <iframe src="brand-book.html" title="Брендбук Profile Coffee" style={{width:"100%", height:"82vh", border:"none", display:"block"}}></iframe>
-      </div>
+      <h1 className="h1" style={{maxWidth:"16ch"}}>Брендбук Profile Coffee</h1>
+      <p className="lede" style={{maxWidth:"40ch"}}>Логотип, палитра, типографика, паттерны и правила.</p>
+      <a href="https://disk.yandex.ru/d/-9tauXgm8REhzQ" target="_blank" rel="noopener"
+         className="btn btn-primary btn-lg"
+         style={{display:"inline-flex", alignItems:"center", gap:10, marginTop:8}}>
+        Открыть брендбук ↗
+      </a>
+      <p style={{fontSize:13, color:"var(--muted)"}}>Открывается на Яндекс.Диске в новой вкладке</p>
     </section>
   );
 }
+
 
 Object.assign(window, { AboutScreen, WholesaleScreen, ContactsScreen, BlogScreen, BlogPostScreen, LegalScreen, BrandBookScreen });
 </script>
