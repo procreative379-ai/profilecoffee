@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>404 — Страница не найдена · Profile Coffee</title>
+<link rel="icon" type="image/x-icon" href="/favicon.ico">
+<link rel="icon" type="image/png" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAExklEQVR42u1ba0xTZxh+zmdd0U6xAnLpaAdCnUAMCYoGkfsQ0bKbxBA3s7HxQyTGDOOWLUZ/LM5silviUONG5oWRzRhFrnXcxsYwm3ERQ6JyR8ucG9vaopMJ7X6UHnZ6AvZ+Tk/7/ur7nXO+732e7/ne79JzAJ95t1HubGyhbIXR2nt1mi7K4wmwBTBXhFB8B+5qIihPAO1KMoingndWu5QnAnemGogQwDsSDxECeEfiIkIBb298REjg7YmTCA28rfESIYK3JW4iVPDWxk+EDN4aHARebkTovf8kPMQbwM+GyzcE+BTMe6XF0N69jhudDdwRwKX8N+WkAwBq1S1uGwa8UYBCLkPscqWJgIYWbhTAZe+rcjIAAKN//o0rV39xWzIUOVKRMioCP7ddpP06dSsKi9/Brh1vIP/FXIQ/EwqtVo/m737EgcPlGL4zMmNdG9ebCKi/3IbJSQPj2jw/Mba8ooJqQwbiYpZhsdQfOt0Y+gaGcKHmMr46dwland4uDCJnMrvgaQnqz1cgIT6OLlsSFICCzSrkZKVAtaUIN7pvsZ4LDJBizar4KRKZ8o9drsTZk4cR+ayc9UxggBSrV8ZDIZfh3X0fcT8LpKxNhMFgQEJKHkKiV6P0/QMwGk1qky7yx5fHPsZcEZvz3Ow0EELw8OE/aG2/wiCvuuoEA/yRzyoQk7geIVGJSMrajL0flOH+76N2xyxy9vjfUboPvf1DAIDPT32NzNQk5GanAQCiIhXI25iF89WNFtk/EwDQ1NaBR+PjdPnbJW8iKHAx7Z+uuoD9H35K+903e9B9s8fuPKDTdFFOVcDt3gHc6ulnlNU0NDP8tOQ1DF8imY/U5MSpe5ny3zSVF8xWfvIMvxdCv967zyobsSgLl4Uw/OfTk+EnFuPxxATUze10+Zw5BLKwYNo3GAzoGxjmNwHm8f5/oyjKqsVPR+dVuzM5bwgICw1mlYUGBzH8O5p79O+5IhGyM9aZ5N/IlP/kpAGakd+mAyUESyPk/CZAGRWBZdGRFvN7OsNv+2E6y69buwr+CxfAaDSiXt3Kqs9ySbz9ra383wwdPbQfSyPkmOcnRuFr+QwC+geHcamuiZXkrl3vZuUKADhytAJ/jP5F+9sKXsbePSUIC1kCP7EYzykjsau4ELt3Fjk+DTrD2jt+gkQyH9e+r2Fd0+r0eH37HjyemKBzQ+4UObWN7LX/WcW/AEbQmZeEFVVNUMhloCgKu3cWsQAf+6KSHwToxx4gf1sJvRSWh4dBpxszLYUPlWNw+C59b0J8HJ0fLAkwgZ+2roIsfJKyFaqcTMTGREO6yB96/QP09g/iYu23qPymmh8EAMCj8XEcLDuOg2XHZ9/8bDDJv6dvELd7B2YEb7aM9kq8dOaccA5EzJufOnULuDRaATpNF+XO7fDK1Bc4BW7+O513Z4KvDj1lU7nHDgFbSHAVeMDiDRGhHodbPQTc9W4eX8DzdghwuhkSugos8fkU4CPACpkIVf6zKkBoJMyExzcE7GFNKL1vlQI8nYQnxU+cUYmngrcpB3gaCdbGS1xRqaeAt2sW4DsJtsZH3NEIX8E7tA7gGwn2xuMUEFwepDjaEYQPQXDZru+7QVf2kNd+OeoMQrzlfJJz+w8UW83Ev+Om9AAAAABJRU5ErkJggg==">
+<script>
+// Перенаправляем на главную
+var path = window.location.pathname;
+if (path !== "/" && path !== "/index.html") {
+  sessionStorage.setItem("redirect", path);
+}
+window.location.replace("https://profilecoffee.ru/");
+</script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0A1422;color:#EAF0F8;display:flex;align-items:center;justify-content:center;min-height:100vh;text-align:center;padding:2rem;}
+.wrap{max-width:480px;}
+.num{font-size:clamp(5rem,15vw,8rem);font-weight:700;line-height:1;color:#5C82B8;margin-bottom:1rem;}
+h1{font-size:clamp(1.2rem,3vw,1.5rem);font-weight:600;margin-bottom:0.75rem;}
+p{font-size:0.95rem;color:rgba(234,240,248,0.6);margin-bottom:2rem;line-height:1.6;}
+a{display:inline-block;background:#15315B;color:#EAF0F8;text-decoration:none;padding:0.85rem 2rem;font-size:0.85rem;font-weight:600;letter-spacing:0.05em;transition:background 0.2s;}
+a:hover{background:#5C82B8;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="num">404</div>
+  <h1>Страница не найдена</h1>
+  <p>Такой страницы нет. Возможно, ссылка устарела или была допущена опечатка.</p>
+  <a href="https://profilecoffee.ru/">На главную →</a>
+</div>
+</body>
+</html>
