@@ -4071,7 +4071,12 @@ function WholesaleScreen({ navigate }) {
             },
             () => { btn.textContent = "✓ Отправлено"; },
             (err) => { btn.textContent = origText; btn.disabled = false; alert("Ошибка: " + err); }
-            );navigate("legal");}} style={{color:"var(--accent)"}}>обработку персональных данных</a>
+            );
+          }}>
+            <label style={{display:"flex",alignItems:"flex-start",gap:10,marginTop:14,cursor:"pointer"}}>
+              <input type="checkbox" name="pdConsent" required style={{marginTop:4,accentColor:"var(--accent)",flexShrink:0,width:16,height:16}} />
+              <span style={{fontSize:13,color:"var(--ink-2)",lineHeight:1.55}}>
+                Я согласен(а) на{" "}<a href="#" onClick={(e)=>{e.preventDefault();navigate("legal");}} style={{color:"var(--accent)"}}>обработку персональных данных</a>
               </span>
             </label>
             <button type="submit" className="btn btn-primary btn-lg" style={{width:"100%",marginTop:14}}>Отправить заявку</button>
