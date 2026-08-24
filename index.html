@@ -1507,7 +1507,23 @@ img { display: block; max-width: 100%; }
 .caption-hint { display: none !important; }
 /* Футер всегда тёмный */
 [data-theme="dark"] .footer { background: #0F1C30 !important; }
+
+/* Секции на тёмном фоне — фиксируем в dark mode */
+[data-theme="dark"] .section[style*="var(--ink)"],
+[data-palette="forest"][data-theme="dark"] section[style*="var(--ink)"] {
+  background: #0F1C30 !important;
+  color: #EAF0F8 !important;
+}
+
 [data-palette="forest"][data-theme="dark"] .footer { background: #0F1C30 !important; }
+
+/* Секции на тёмном фоне — фиксируем в dark mode */
+[data-theme="dark"] .section[style*="var(--ink)"],
+[data-palette="forest"][data-theme="dark"] section[style*="var(--ink)"] {
+  background: #0F1C30 !important;
+  color: #EAF0F8 !important;
+}
+
 
 [data-palette="forest"][data-theme="dark"] .footer-grid h4,
 [data-palette="forest"][data-theme="dark"] .footer-grid a { color: var(--ink-2); }
@@ -3997,24 +4013,24 @@ function WholesaleScreen({ navigate }) {
   return (
     <React.Fragment>
       <section className="section" style={{borderTop:"none", background:"var(--ink)", color:"var(--bg)"}}>
-        <div className="eyebrow" style={{color:"rgba(236,226,205,0.6)"}}>Для кофеен и офисов</div>
+        <div className="eyebrow" style={{color:"rgba(255,255,255,0.5)"}}>Для кофеен и офисов</div>
         <h1 className="h1" style={{maxWidth:"14ch"}}>Опт без анонимных мешков.</h1>
-        <p className="lede" style={{marginTop:24, color:"rgba(236,226,205,0.8)"}}>
+        <p className="lede" style={{marginTop:24, color:"rgba(255,255,255,0.75)"}}>
           Поставляем свежеобжаренный кофе в кофейни и офисы. Прозрачные цены, свой профиль обжарки, обучение бариста — всё в одном месте.
         </p>
 
         <div className="split thirds" style={{marginTop: 48}}>
-          <div className="fact" style={{borderColor:"rgba(236,226,205,0.2)"}}>
+          <div className="fact" style={{borderColor:"rgba(255,255,255,0.15)"}}>
             <div className="big-num">40+</div>
-            <div className="lbl" style={{color:"rgba(236,226,205,0.6)"}}>кофеен на постоянной</div>
+            <div className="lbl" style={{color:"rgba(255,255,255,0.5)"}}>кофеен на постоянной</div>
           </div>
-          <div className="fact" style={{borderColor:"rgba(236,226,205,0.2)"}}>
+          <div className="fact" style={{borderColor:"rgba(255,255,255,0.15)"}}>
             <div className="big-num">3</div>
-            <div className="lbl" style={{color:"rgba(236,226,205,0.6)"}}>города · мск · спб · казань</div>
+            <div className="lbl" style={{color:"rgba(255,255,255,0.5)"}}>города · мск · спб · казань</div>
           </div>
-          <div className="fact" style={{borderColor:"rgba(236,226,205,0.2)"}}>
+          <div className="fact" style={{borderColor:"rgba(255,255,255,0.15)"}}>
             <div className="big-num">от 5 кг</div>
-            <div className="lbl" style={{color:"rgba(236,226,205,0.6)"}}>в месяц — старт</div>
+            <div className="lbl" style={{color:"rgba(255,255,255,0.5)"}}>в месяц — старт</div>
           </div>
         </div>
       </section>
