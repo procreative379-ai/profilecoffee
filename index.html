@@ -1517,8 +1517,7 @@ function initYandexMetrika() {
   (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
   ym(109088169, "init", {clickmap:true,trackLinks:true,accurateTrackBounce:true,webvisor:true});
 }
-try { if (localStorage.getItem("cookie-consent") === "accepted") { initYandexMetrika(); } } catch(e) {}
-document.addEventListener("pc:cookie:accept", initYandexMetrika);
+initYandexMetrika();
 </script>
 <noscript><div><img src="https://mc.yandex.ru/watch/109088169" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
 <div id="root"></div>
@@ -3242,13 +3241,9 @@ function Toast({ msg }) {
 }
 
 function CookieBanner({ navigate }) {
-  const [visible, setVisible] = React.useState(false);
-  React.useEffect(() => {
-    try { if (!localStorage.getItem("cookie-consent")) setVisible(true); } catch (e) { setVisible(true); }
-  }, []);
+  // Баннер — только уведомление: показывается при каждом заходе, закрытие не запоминается
+  const [visible, setVisible] = React.useState(true);
   function accept() {
-    try { localStorage.setItem("cookie-consent", "accepted"); } catch (e) {}
-    document.dispatchEvent(new Event("pc:cookie:accept"));
     setVisible(false);
   }
   if (!visible) return null;
@@ -3258,7 +3253,7 @@ function CookieBanner({ navigate }) {
         Мы используем cookie и Яндекс.Метрику для аналитики посещаемости сайта. Продолжая пользоваться сайтом, вы соглашаетесь с их использованием — подробнее в{" "}
         <a href="#" onClick={(e) => { e.preventDefault(); navigate("legal"); }}>политике конфиденциальности</a>.
       </p>
-      <button className="btn btn-ink btn-sm" onClick={accept}>Хорошо</button>
+      <button className="btn btn-ink btn-sm" onClick={accept}>Понятно</button>
     </div>
   );
 }
